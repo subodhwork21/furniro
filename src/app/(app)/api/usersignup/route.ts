@@ -8,7 +8,6 @@ import { EmailTemplate } from '../../components/email_template';
 const resend = new Resend(process.env.RESEND_API_KEY);
 
 export async function POST(request: Request) {
-  const bcrypt = require( 'bcrypt');
 
   const payload = await getPayloadHMR({ config });
 

@@ -30,13 +30,13 @@ const Header = ({
             <Link href={"/"}>Home</Link>
           </li>
           <li>
-            <Link href={"/"}>Shop</Link>
+            <Link href={"/shop"}>Shop</Link>
           </li>
           <li>
-            <Link href={"/"}>About</Link>
+            <Link href={"/about"}>About</Link>
           </li>
           <li>
-            <Link href={"/"}>Contact</Link>
+            <Link href={"/contact"}>Contact</Link>
           </li>
         </ul>
         <div className="flex justify-center items-center gap-x-[47.33px]">
@@ -84,7 +84,7 @@ const Header = ({
             ></Image>
             <span>
               {cartItem && cartItem > 0 ? (
-                <span className="absolute -top-[10px] -right-[10px] bg-primary text-white text-[12px] rounded-full w-[16px] h-[16px] flex justify-center items-center">
+                <span className="absolute -top-[10px] -right-[10px] p-[10px] bg-primary text-white text-[12px] rounded-full w-[16px] h-[16px] flex justify-center items-center">
                   {cartItem}
                 </span>
               ) : (

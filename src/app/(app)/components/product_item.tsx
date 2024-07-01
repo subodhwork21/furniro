@@ -67,9 +67,6 @@ const ProductItem = ({
           toast({
             title: "1 more item " + name + " added to cart",
             description: "",
-            // action: (
-            //   <ToastAction altText="Goto schedule to undo">Undo</ToastAction>
-            // ),
           });
           router.refresh();
           setLoading("existsAlready");
@@ -79,17 +76,12 @@ const ProductItem = ({
           toast({
             title: "1 item " + name + " added to cart",
             description: "1 item",
-            // action: (
-            //   <ToastAction altText="Goto schedule to undo">Undo</ToastAction>
-            // ),
           });
           router.refresh();
           setLoading(true);
         });
       }
-    } catch (error) {
-      console.log(error);
-    }
+    } catch (error) {}
   }
 
   useEffect(() => {
@@ -99,16 +91,16 @@ const ProductItem = ({
   }, [loading]);
 
   return (
-    <div className=" bg-tertiary overflow-hidden group">
+    <div className=" bg-tertiary overflow-hidden group relative">
       {loading === null || loading === true || <Toaster />}
 
       <div className="relative z-10">
         <Image
           className="mb-[16px] object-fill"
-          src={"https://furniro-wine.vercel.app/api/furniture/file/potty-3.png"}
+          src={image.url}
           width={image.width}
           height={image.height}
-          alt="syltherine"
+          alt={image.alt}
         />
         <div
           className={`h-[300px] absolute w-full px-[16px] z-[4] group top-0 left-0 flex justify-center items-center flex-col bg-black bg-opacity-50 opacity-0 transition-opacity duration-300 group-hover:opacity-100`}
@@ -151,7 +143,7 @@ const ProductItem = ({
                 height={16}
                 alt="heart"
               />
-              <span>Share</span>
+              <span>Like</span>
             </p>
           </div>
         </div>
@@ -174,7 +166,7 @@ const ProductItem = ({
       </div>
       {discount != "none" ? (
         <p
-          className={`w-[48px] h-[48px] rounded-full absolute top-[24px] right-[24px] ${
+          className={`w-[48px] h-[48px] z-20 rounded-full absolute top-[24px] right-[24px] ${
             discount != "new" ? "bg-bgred" : "bg-bggreen"
           } flex justify-center items-center text-white font-poppinsmedium capitalize`}
         >

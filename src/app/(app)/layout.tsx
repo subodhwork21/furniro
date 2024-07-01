@@ -29,6 +29,16 @@ const poppinsbold = localFont({
   variable: "--font-poppinsbold",
 });
 
+const poppinslight = localFont({
+  src: "./fonts/Poppins-Light.ttf",
+  variable: "--font-poppinslight",
+});
+
+const poppinsregular = localFont({
+  src: "./fonts/Poppins-Regular.ttf",
+  variable: "--font-poppinsregular",
+});
+
 import { cookies } from "next/headers";
 import { AuthProvider } from "./providers/Auth";
 
@@ -43,12 +53,11 @@ export default async function RootLayout({
   const login = cookieStore.get("login")?.value;
   const userId = cookieStore.get("_id")?.value;
   const cartItem = cookieStore.get("cart")?.value;
-
   return (
     <html lang="en">
       <AuthProvider>
         <body
-          className={`${poppinsmedium.variable} ${poppinssemibold.variable} ${poppinsbold.variable}`}
+          className={`${poppinsmedium.variable} ${poppinssemibold.variable} ${poppinsbold.variable} ${poppinslight.variable} ${poppinsregular.variable}`}
         >
           {<Header login={login} userId={userId} cartItem={cartItem} />}
           {children}

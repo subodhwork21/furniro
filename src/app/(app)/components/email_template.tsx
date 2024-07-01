@@ -22,7 +22,7 @@ export const EmailTemplate: React.FC<Readonly<EmailTemplateProps>> = ({
       >
         <p>Dear User,</p>
         <p>
-          Thank you for signing up with us. Please verify your email address
+          Thank you for signing up with us. Please verify your email address{" "}
           {email} by clicking the button below:
         </p>
         <div style={{ textAlign: "center", margin: "20px 0" }}>

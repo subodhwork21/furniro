@@ -12,6 +12,8 @@ const config: Config = {
         poppinsmedium: ["var(--font-poppinsmedium)"],
         poppinssemibold: ["var(--font-poppinssemibold)"],
         poppinsbold: ["var(--font-poppinsbold)"],
+        poppinslight: ["var(--font-poppinslight)"],
+        poppinsregular: ["var(--font-poppinsregular)"],
       },
       colors:{
         primary: "#B88E2F",

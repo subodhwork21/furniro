@@ -31,7 +31,6 @@ const poppinsbold = localFont({
 
 import { cookies } from "next/headers";
 import { AuthProvider } from "./providers/Auth";
-import { startTransition } from "react";
 
 export default async function RootLayout({
   children,
@@ -44,10 +43,7 @@ export default async function RootLayout({
   const login = cookieStore.get("login")?.value;
   const userId = cookieStore.get("_id")?.value;
   const cartItem = cookieStore.get("cart")?.value;
-  // const cart_products:any = await payload.findByID({
-  //   collection: 'customers',
-  //   id: userId || '', // Ensure userId is a string
-  // })
+
   return (
     <html lang="en">
       <AuthProvider>

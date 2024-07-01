@@ -12,6 +12,7 @@ const ImageGrid = ({ imageGridItems }: { imageGridItems: any }) => {
       };
     }
   );
+  console.log(imagesArray);
   return (
     <section className="max-w-[1440px] mx-auto pt-[67px] pb-[50px]">
       <div className="flex justify-between items-center flex-col w-full mb-[32px]">

@@ -50,7 +50,6 @@ export async function POST(request: Request) {
       totalQuantity += item.cart_quantity;
     })
     totalQuantity = `${totalQuantity}`
-    console.log(totalQuantity);
     cookies().set("cart", user.docs && user.docs[0].Cart ?  totalQuantity: 0, { path: "/" });
     return NextResponse.json({ message: "Product added to cart successfully", user, productExistsInCart:  productAlreadyInCart});
 

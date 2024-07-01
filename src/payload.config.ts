@@ -1,5 +1,4 @@
 // storage-adapter-import-placeholder
-import { mongooseAdapter } from '@payloadcms/db-mongodb'
 import { lexicalEditor } from '@payloadcms/richtext-lexical'
 import path from 'path'
 import { buildConfig } from 'payload'
@@ -15,8 +14,8 @@ import { Orders } from './collections/Orders'
 import { Inspiration } from './collections/Inspiration'
 import { GridImages } from './collections/GridImages'
 import { Customers } from './collections/Customers'
-
-
+import { vercelBlobStorage } from '@payloadcms/storage-vercel-blob'
+import { mongooseAdapter } from "@payloadcms/db-mongodb";
 
 const filename = fileURLToPath(import.meta.url)
 const dirname = path.dirname(filename)
@@ -37,6 +36,13 @@ export default buildConfig({
   }),
   sharp,
   plugins: [
+    vercelBlobStorage({
+      collections: {
+        [Media.slug]: true,
+      },
+      token: process.env.BLOB_READ_WRITE_TOKEN || "",
+    })
     // storage-adapter-placeholder
   ],
 })
+

@@ -41,24 +41,25 @@ const SliderInspiration = ({ sliderImages }: { sliderImages: any }) => {
           modules={[Pagination, Autoplay]}
           className="mySwiper h-[582px] w-[900px]"
         >
-          {sliderImages.docs[0]["furniture slides"].map(
-            (image: any, idx: number) => {
-              return (
-                <SwiperSlide key={idx} className="w-[404px] relative">
-                  <Image
-                    src={image.image.url}
-                    width={image.image.width}
-                    height={image.image.height}
-                    alt="innerpeace"
-                  ></Image>
-                  <div className="absolute bottom-[24px] left-[24px] py-[32px] pl-[32px] pr-[17px] bg-white">
-                    <p className="text-[16px] text-bgdark">{image.title}</p>
-                    <p className="text-[28px]">{image.caption}</p>
-                  </div>
-                </SwiperSlide>
-              );
-            }
-          )}
+          {sliderImages.docs[0] &&
+            sliderImages.docs[0]["furniture slides"].map(
+              (image: any, idx: number) => {
+                return (
+                  <SwiperSlide key={idx} className="w-[404px] relative">
+                    <Image
+                      src={image.image.url}
+                      width={image.image.width}
+                      height={image.image.height}
+                      alt="innerpeace"
+                    ></Image>
+                    <div className="absolute bottom-[24px] left-[24px] py-[32px] pl-[32px] pr-[17px] bg-white">
+                      <p className="text-[16px] text-bgdark">{image.title}</p>
+                      <p className="text-[28px]">{image.caption}</p>
+                    </div>
+                  </SwiperSlide>
+                );
+              }
+            )}
         </Swiper>
       </section>
     </>

@@ -32,7 +32,7 @@ export default async function Home() {
     <>
       <HeroSection />
       <Products productData={productItems} categoryItems={categoryItems} />
-      <SliderInspiration sliderImages={inspirationItems} />
+      {/* <SliderInspiration sliderImages={inspirationItems} /> */}
       <ImageGrid imageGridItems={imageGridItems} />
     </>
   );

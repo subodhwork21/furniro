@@ -25,11 +25,16 @@ export async function POST(request: Request) {
     };
   
     const { token, user } = await payload.login(userData);
+    let totalQuantity:any = 0;
+    user.Cart.Cart_products.forEach((item: any)=>{
+      totalQuantity += item.cart_quantity;
+    })
+    totalQuantity = `${totalQuantity}`
     if (token) {
      
       cookies().set("login", token, { path: "/" });
       cookies().set("_id",user.id.toString(), { path: "/" });
-      cookies().set("cart", user && user.Cart ?  user.Cart.Cart_products.length: 0, { path: "/" });
+      cookies().set("cart", user && user.Cart ?  totalQuantity: 0, { path: "/" });
     }
 
     return NextResponse.json({ message: "User logged in successfully", token, email:body.email });

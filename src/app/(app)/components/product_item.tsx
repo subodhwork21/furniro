@@ -44,7 +44,11 @@ const ProductItem = ({
     }
   }
 
-  async function addtocart(id1: string) {
+  async function addtocart(id1: string, name: string) {
+    toast({
+      title: "Adding an item to cart",
+      description: "1 item",
+    });
     setLoading(null);
     try {
       const res = await fetch("/api/addtocart", {
@@ -57,17 +61,28 @@ const ProductItem = ({
         }),
       });
       const data = await res.json();
-      toast({
-        title: "Added to Cart",
-        description: "1 item",
-        // action: (
-        //   <ToastAction altText="Goto schedule to undo">Undo</ToastAction>
-        // ),
-      });
+
       if (data.productExistsInCart) {
-        setLoading("existsAlready");
+        startTransition(() => {
+          toast({
+            title: "1 more item " + name + " added to cart",
+            description: "",
+            // action: (
+            //   <ToastAction altText="Goto schedule to undo">Undo</ToastAction>
+            // ),
+          });
+          router.refresh();
+          setLoading("existsAlready");
+        });
       } else if (data) {
         startTransition(() => {
+          toast({
+            title: "1 item " + name + " added to cart",
+            description: "1 item",
+            // action: (
+            //   <ToastAction altText="Goto schedule to undo">Undo</ToastAction>
+            // ),
+          });
           router.refresh();
           setLoading(true);
         });
@@ -85,6 +100,8 @@ const ProductItem = ({
 
   return (
     <div className=" bg-tertiary overflow-hidden group">
+      {loading === null || loading === true || <Toaster />}
+
       <div className="relative z-10">
         <Image
           className="mb-[16px] object-fill"
@@ -97,13 +114,11 @@ const ProductItem = ({
           className={`h-[300px] absolute w-full px-[16px] z-[4] group top-0 left-0 flex justify-center items-center flex-col bg-black bg-opacity-50 opacity-0 transition-opacity duration-300 group-hover:opacity-100`}
         >
           <button
-            onClick={() => addtocart(id)}
+            onClick={() => addtocart(id, name)}
             className={` w-[202px] bg-white  h-[48px] z-[100] opacity-100 hover:bg-primary hover:transition-all hover:duration-500 text-primary hover:text-white font-poppinssemibold`}
           >
             {loading === true || loading === null
               ? "Adding to cart...."
-              : loading === "existsAlready"
-              ? "Already in cart "
               : "Add to cart"}
           </button>
 

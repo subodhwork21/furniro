@@ -10,7 +10,7 @@ export async function POST(request: Request) {
   const userId = cookieStore.get("_id")?.value;
   try {
     const body = await request.json();
-    if (!body.id) {
+    if (!body.id || !userId) {
       return NextResponse.json(
         { message: "Not a valid user or product" },
         { status: 400 }
@@ -21,7 +21,9 @@ export async function POST(request: Request) {
       id: userId || '', // Ensure userId is a string
     })
     const productsIdFromCollection = (result.Cart && result.Cart.Cart_products) ? result.Cart.Cart_products.map((item: any) => ({ cart_product: item.cart_product.id, cart_quantity: item.cart_quantity })) : [];  
-    let productAlreadyInCart = productsIdFromCollection.some((item: any) => item.cart_product === body.id);
+    let productAlreadyInCart: boolean = productsIdFromCollection.some((item: any) => item.cart_product === body.id);
+    let productsIdFromCollectionAfterRemoved = productsIdFromCollection.filter((item: any) => item.cart_product!== body.id);
+    let productRemoved = productsIdFromCollection.filter((item: any) => item.cart_product === body.id);
     const userData = {
       collection: "customers",
       data: {
@@ -29,7 +31,11 @@ export async function POST(request: Request) {
           Cart_products: !productAlreadyInCart ? [...productsIdFromCollection,  {
             cart_product:body.id,
             cart_quantity: 1
-          }] : [...productsIdFromCollection]
+          }] : [...productsIdFromCollectionAfterRemoved, {
+            cart_product:body.id,
+            cart_quantity: productRemoved[0].cart_quantity + 1
+
+          }]
         
       }},
       where: {
@@ -39,8 +45,12 @@ export async function POST(request: Request) {
       },
     };
     const user:any = await payload.update(userData);
-
-    cookies().set("cart", user.docs && user.docs[0].Cart ?  user.docs[0].Cart.Cart_products.length: 0, { path: "/" });
+    let totalQuantity:any = 0;
+    user.docs[0].Cart.Cart_products.forEach((item: any)=>{
+      totalQuantity += item.cart_quantity;
+    })
+    totalQuantity = `${totalQuantity}`
+    cookies().set("cart", user.docs && user.docs[0].Cart ?  totalQuantity: 0, { path: "/" });
     return NextResponse.json({ message: "Product added to cart successfully", user, productExistsInCart:  productAlreadyInCart});
 
   } catch (error: any) {

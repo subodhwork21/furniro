@@ -105,7 +105,7 @@ const ProductItem = ({
       <div className="relative z-10">
         <Image
           className="mb-[16px] object-fill"
-          src={image.url}
+          src={"https://furniro-wine.vercel.app/api/furniture/file/potty-3.png"}
           width={image.width}
           height={image.height}
           alt="syltherine"

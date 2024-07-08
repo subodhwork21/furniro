@@ -53,11 +53,12 @@ const Products = ({
               key={id}
               id={product.id}
               image={product["product image"]}
-              name={product["product name"]}
+              name={product.product_name}
               description={product["product description"]}
               price={product["product price"]}
               prevprice={product["product price before discount"]}
               type={product["product type"]}
+              slug={product.product_slug}
             />
           ))}
         </div>

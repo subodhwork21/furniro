@@ -2,6 +2,7 @@ import React from "react";
 import Container from "../components/container";
 import Image from "next/image";
 import { Button1 } from "../components/buttons";
+import Link from "next/link";
 
 const HeroSection = () => {
   return (
@@ -29,13 +30,15 @@ const HeroSection = () => {
             Lorem ipsum dolor sit amet, consectetur adipiscing elit. Ut elit
             tellus, luctus nec ullamcorper mattis.
           </p>
-          <Button1
-            width="w-[222px]"
-            height="h-[74px]"
-            bg="bg-primary"
-            text="text-white"
-            name="Buy Now"
-          />
+          <Link href="/shop">
+            <Button1
+              width="w-[222px]"
+              height="h-[74px]"
+              bg="bg-primary"
+              text="text-white"
+              name="Buy Now"
+            />
+          </Link>
         </div>
       </Container>
       <Image

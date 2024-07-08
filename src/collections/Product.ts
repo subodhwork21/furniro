@@ -1,16 +1,41 @@
 import { CollectionConfig } from 'payload'
+import { FieldHook } from 'payload';
+
+const formatSlug: FieldHook = async ({ value, data }) => {
+  return (
+    data?.product_name
+      ?.replace(/[^a-zA-Z0-9]+/g, "-")
+      ?.toLowerCase()
+      ?.replace(/^-+|-+$/g, "") ?? value
+  );
+};
 
 export const Products: CollectionConfig = {
   slug: 'products',
   admin: {
-    useAsTitle: 'product name',
+    useAsTitle: 'product_name',
+    
 
   },
   fields: [
     {
-      name: 'product name',
+      name: 'product_name',
+      label: 'Product Name',
       type: 'text',
       required: true,
+    },
+    {
+      name: 'product_slug',
+      type: 'text',
+      hooks: {
+        beforeChange: [
+         formatSlug
+        ],
+      },
+      admin: {
+        readOnly: true
+      }
+      
     },
     {
         name: 'product price',

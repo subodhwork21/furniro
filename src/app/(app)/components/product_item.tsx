@@ -5,12 +5,24 @@ import { useAuth } from "../providers/Auth";
 import { Toaster } from "@/components/ui/toaster";
 import { ToastAction } from "@/components/ui/toast";
 import { useToast } from "@/components/ui/use-toast";
+import {
+  AlertDialog,
+  AlertDialogAction,
+  AlertDialogCancel,
+  AlertDialogContent,
+  AlertDialogDescription,
+  AlertDialogFooter,
+  AlertDialogHeader,
+  AlertDialogTitle,
+  AlertDialogTrigger,
+} from "./alertbox";
+
 interface Customers {
   id: string;
   email: string;
 }
 import { startTransition, useEffect, useState } from "react";
-import { log } from "console";
+import Link from "next/link";
 const ProductItem = ({
   id,
   image,
@@ -19,6 +31,7 @@ const ProductItem = ({
   prevprice,
   price,
   type,
+  slug,
 }: {
   id: string;
   image: any;
@@ -27,6 +40,7 @@ const ProductItem = ({
   prevprice: string | undefined;
   price: string;
   type: string;
+  slug: string;
 }) => {
   const { toast } = useToast();
   const router = useRouter();
@@ -61,7 +75,7 @@ const ProductItem = ({
         }),
       });
       const data = await res.json();
-
+      console.log(data);
       if (data.productExistsInCart) {
         startTransition(() => {
           toast({
@@ -71,7 +85,19 @@ const ProductItem = ({
           router.refresh();
           setLoading("existsAlready");
         });
-      } else if (data) {
+      } else if (
+        data.message === "Product quantity is more than original quantity"
+      ) {
+        startTransition(() => {
+          toast({
+            title:
+              "The quantity of the added product in the cart exceeds the available stock.",
+            description: "",
+          });
+          router.refresh();
+          setLoading("existsAlready");
+        });
+      } else if (data.message === "Product added to cart successfully") {
         startTransition(() => {
           toast({
             title: "1 item " + name + " added to cart",
@@ -81,7 +107,9 @@ const ProductItem = ({
           setLoading(true);
         });
       }
-    } catch (error) {}
+    } catch (error) {
+      setLoading("error");
+    }
   }
 
   useEffect(() => {
@@ -91,92 +119,97 @@ const ProductItem = ({
   }, [loading]);
 
   return (
-    <div className=" bg-tertiary overflow-hidden group relative">
-      {loading === null || loading === true || <Toaster />}
+    <Link href={`/single_product/${slug}`}>
+      <div className=" bg-tertiary overflow-hidden group relative">
+        {loading === "existsAlready" || loading === true || <Toaster />}
 
-      <div className="relative z-10">
-        <Image
-          className="mb-[16px] object-fill"
-          src={image.url}
-          width={image.width}
-          height={image.height}
-          alt={image.alt}
-        />
-        <div
-          className={`h-[300px] absolute w-full px-[16px] z-[4] group top-0 left-0 flex justify-center items-center flex-col bg-black bg-opacity-50 opacity-0 transition-opacity duration-300 group-hover:opacity-100`}
-        >
-          <button
-            onClick={() => addtocart(id, name)}
-            className={` w-[202px] bg-white  h-[48px] z-[100] opacity-100 hover:bg-primary hover:transition-all hover:duration-500 text-primary hover:text-white font-poppinssemibold`}
+        <div className="relative z-10">
+          <img
+            className="mb-[16px] object-fill"
+            src={image.url}
+            width={image.width}
+            height={image.height}
+            alt={image.alt}
+          />
+          <div
+            className={`h-[300px] absolute w-full px-[16px] z-[4] group top-0 left-0 flex justify-center items-center flex-col bg-black bg-opacity-50 opacity-0 transition-opacity duration-300 group-hover:opacity-100`}
           >
-            {loading === true || loading === null
-              ? "Adding to cart...."
-              : "Add to cart"}
-          </button>
+            <button
+              onClick={(e) => {
+                e.preventDefault();
+                addtocart(id, name);
+              }}
+              className={` w-[202px] bg-white  h-[48px] z-[100] opacity-100 hover:bg-primary hover:transition-all hover:duration-500 text-primary hover:text-white font-poppinssemibold`}
+            >
+              {loading === true || loading === null
+                ? "Adding to cart...."
+                : "Add to cart"}
+            </button>
 
-          <div className="flex justify-between items-center text-white w-full mt-[24px]">
-            <p className="cursor-pointer">
-              <Image
-                className="inline mr-[4px]"
-                src={"/images/share.svg"}
-                width={16}
-                height={16}
-                alt="share"
-              />
-              <span>Share</span>
-            </p>
-            <p className="cursor-pointer">
-              <Image
-                className="inline mr-[4px]"
-                src={"/images/compare.png"}
-                width={16}
-                height={16}
-                alt="compare"
-              />
-              <span>Share</span>
-            </p>
-            <p className="cursor-pointer">
-              <Image
-                className="invert inline mr-[4px]"
-                src={"/images/heart.svg"}
-                width={16}
-                height={16}
-                alt="heart"
-              />
-              <span>Like</span>
-            </p>
+            <div className="flex justify-between items-center text-white w-full mt-[24px]">
+              <p className="cursor-pointer">
+                <Image
+                  className="inline mr-[4px]"
+                  src={"/images/share.svg"}
+                  width={16}
+                  height={16}
+                  alt="share"
+                />
+                <span>Share</span>
+              </p>
+              <p className="cursor-pointer">
+                <Image
+                  className="inline mr-[4px]"
+                  src={"/images/compare.png"}
+                  width={16}
+                  height={16}
+                  alt="compare"
+                />
+                <span>Share</span>
+              </p>
+              <p className="cursor-pointer">
+                <Image
+                  className="invert inline mr-[4px]"
+                  src={"/images/heart.svg"}
+                  width={16}
+                  height={16}
+                  alt="heart"
+                />
+                <span>Like</span>
+              </p>
+            </div>
           </div>
         </div>
-      </div>
-      <div className="flex justify-center items-left flex-col pl-[16px] pr-[20px] pt-[16px] pb-[30px]">
-        <h5 className="font-poppinssemibold mb-[8px]">{name}</h5>
-        <p className="font-poppinsmedium text-fontquaternary text-[16px] mb-[8px]">
-          {description}
-        </p>
-        <div className="flex justify-between items-center ">
-          <p className="text-[20px] font-poppinssemibold">Rs {price}</p>
-          {prevprice != undefined ? (
-            <p className="text-[16px] text-[#B0B0B0] line-through">
-              Rs {prevprice}
-            </p>
-          ) : (
-            ""
-          )}
+        <div className="flex justify-center items-left flex-col pl-[16px] pr-[20px] pt-[16px] pb-[30px]">
+          <h5 className="font-poppinssemibold mb-[8px]">{name}</h5>
+          <p className="font-poppinsmedium text-fontquaternary text-[16px] mb-[8px]">
+            {description}
+          </p>
+          <div className="flex justify-between items-center ">
+            <p className="text-[20px] font-poppinssemibold">Rs {price}</p>
+            {prevprice != undefined ? (
+              <p className="text-[16px] text-[#B0B0B0] line-through">
+                Rs {prevprice}
+              </p>
+            ) : (
+              ""
+            )}
+          </div>
         </div>
+        {discount != "none" ? (
+          <p
+            className={`w-[48px] h-[48px] z-20 rounded-full absolute top-[24px] right-[24px] ${
+              discount != "new" ? "bg-bgred" : "bg-bggreen"
+            } flex justify-center items-center text-white font-poppinsmedium capitalize`}
+          >
+            {" "}
+            {discount}
+          </p>
+        ) : (
+          ""
+        )}
       </div>
-      {discount != "none" ? (
-        <p
-          className={`w-[48px] h-[48px] z-20 rounded-full absolute top-[24px] right-[24px] ${
-            discount != "new" ? "bg-bgred" : "bg-bggreen"
-          } flex justify-center items-center text-white font-poppinsmedium capitalize`}
-        >
-          {" "}
-          {discount}
-        </p>
-      ) : (
-        ""
-      )}
-    </div>
+    </Link>
   );
 };
 

@@ -20,7 +20,11 @@ const Page = () => {
   useEffect(() => {
     const getProductsAll = async () => {
       try {
-        const response = await fetch("/api/products/" + page + "/" + limit);
+        let limitProducts = limit === "" ? 12 : limit;
+
+        const response = await fetch(
+          "/api/products/" + page + "/" + limitProducts
+        );
         const data = await response.json();
         setProducts(data.productsData);
         setPagination({
@@ -31,7 +35,7 @@ const Page = () => {
           totalDocs: data.productsData.totalDocs,
         });
       } catch (err) {
-        console.log(err);
+        // console.log(err);
       }
     };
     getProductsAll();
@@ -60,9 +64,9 @@ const Page = () => {
                   xmlns="http://www.w3.org/2000/svg"
                   fill="none"
                   viewBox="0 0 24 24"
-                  strokeWidth={1.5}
+                  strokeWidth={3}
                   stroke="currentColor"
-                  className="size-6"
+                  className="size-4"
                 >
                   <path
                     strokeLinecap="round"
@@ -129,7 +133,9 @@ const Page = () => {
           </div>
           <p className="pl-[34px] border-l-[1px] border-black">
             <span className="font-poppinsregular">
-              Showing 1–{page * Number(limit)} of {pagination.totalDocs} results
+              Showing {Number(limit === "" ? 12 : limit) * (page - 1) + 1}–
+              {page * Number(limit === "" ? 12 : limit)} of{" "}
+              {pagination.totalDocs} results
             </span>
           </p>
         </div>
@@ -161,11 +167,12 @@ const Page = () => {
                   key={id}
                   id={product.id}
                   image={product["product image"]}
-                  name={product["product name"]}
+                  name={product.product_name}
                   description={product["product description"]}
                   price={product["product price"]}
                   prevprice={product["product price before discount"]}
                   type={product["product type"]}
+                  slug={product.product_slug}
                 />
               ))}
           </div>

@@ -13,17 +13,25 @@ export async function POST(request: Request) {
     if (!body.id || !userId) {
       return NextResponse.json(
         { message: "Not a valid user or product" },
-        { status: 400 }
+        { status: 500 }
       );
     }
     const result:any = await payload.findByID({
       collection: 'customers',
       id: userId || '', // Ensure userId is a string
     })
-    const productsIdFromCollection = (result.Cart && result.Cart.Cart_products) ? result.Cart.Cart_products.map((item: any) => ({ cart_product: item.cart_product.id, cart_quantity: item.cart_quantity })) : [];  
+    const productsIdFromCollection = (result.Cart && result.Cart.Cart_products) ? result.Cart.Cart_products.map((item: any) => ({ cart_product: item.cart_product.id, original_quantity: item.cart_product.quantity, cart_quantity: item?.cart_quantity })) : [];  
     let productAlreadyInCart: boolean = productsIdFromCollection.some((item: any) => item.cart_product === body.id);
     let productsIdFromCollectionAfterRemoved = productsIdFromCollection.filter((item: any) => item.cart_product!== body.id);
     let productRemoved = productsIdFromCollection.filter((item: any) => item.cart_product === body.id);
+
+    if(productRemoved.length === 1 && (productRemoved[0].cart_quantity+1 > productRemoved[0].original_quantity)){
+      return NextResponse.json(
+        { message: "Product quantity is more than original quantity" },
+        { status: 500 }
+      );
+    }
+
     const userData = {
       collection: "customers",
       data: {

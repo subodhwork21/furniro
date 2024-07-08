@@ -46,12 +46,12 @@ const SliderInspiration = ({ sliderImages }: { sliderImages: any }) => {
               (image: any, idx: number) => {
                 return (
                   <SwiperSlide key={idx} className="w-[404px] relative">
-                    <Image
+                    <img
                       src={image.image.url}
                       width={image.image.width}
                       height={image.image.height}
                       alt="innerpeace"
-                    ></Image>
+                    />
                     <div className="absolute bottom-[24px] left-[24px] py-[32px] pl-[32px] pr-[17px] bg-white">
                       <p className="text-[16px] text-bgdark">{image.title}</p>
                       <p className="text-[28px]">{image.caption}</p>

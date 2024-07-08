@@ -28,13 +28,13 @@ const Products = ({
                 key={category.id}
                 className="flex justify-center items-center flex-col"
               >
-                <Image
+                <img
                   className="mb-[30px]"
                   src={category["category image"].url}
                   width={category["category image"].width}
                   height={category["category image"].height}
                   alt={category["category image"].alt}
-                ></Image>
+                />
                 <p className="font-poppinssemibold text-[24px]">
                   {category["category name"]}
                 </p>

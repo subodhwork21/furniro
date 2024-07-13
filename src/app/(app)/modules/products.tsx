@@ -10,6 +10,7 @@ const Products = ({
   productData: any;
   categoryItems: any;
 }) => {
+  console.log(productData);
   return (
     <Container pl="pl-[0px]" pt="pt-[56px]" pb="pb-[69px]" pr="pr-[0px]">
       <Container pl="pl-[131px]" pt="pt-[0px]" pb="pb-[0px]" pr="pr-[126px]">
@@ -28,7 +29,7 @@ const Products = ({
                 key={category.id}
                 className="flex justify-center items-center flex-col"
               >
-                <img
+                <Image
                   className="mb-[30px]"
                   src={category["category image"].url}
                   width={category["category image"].width}

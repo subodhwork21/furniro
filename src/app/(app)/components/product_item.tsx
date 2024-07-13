@@ -124,7 +124,7 @@ const ProductItem = ({
         {loading === "existsAlready" || loading === true || <Toaster />}
 
         <div className="relative z-10">
-          <img
+          <Image
             className="mb-[16px] object-fill"
             src={image.url}
             width={image.width}

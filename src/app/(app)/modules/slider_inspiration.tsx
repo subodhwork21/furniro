@@ -46,7 +46,7 @@ const SliderInspiration = ({ sliderImages }: { sliderImages: any }) => {
               (image: any, idx: number) => {
                 return (
                   <SwiperSlide key={idx} className="w-[404px] relative">
-                    <img
+                    <Image
                       src={image.image.url}
                       width={image.image.width}
                       height={image.image.height}

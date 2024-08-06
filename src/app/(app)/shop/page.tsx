@@ -9,7 +9,7 @@ import { useState } from "react";
 const Page = () => {
   const [products, setProducts] = useState<any>([]);
   const [page, setPage] = useState<number>(1);
-  const [limit, setLimit] = useState<number | string>("4");
+  const [limit, setLimit] = useState<number | string>("8");
   const [pagination, setPagination] = useState<any>({
     page: 0,
     limit: 0,
@@ -23,7 +23,7 @@ const Page = () => {
         let limitProducts = limit === "" ? 12 : limit;
 
         const response = await fetch(
-          "/api/products/" + page + "/" + limitProducts
+          "/api/products/" + page + "/" + limitProducts, {cache: 'force-cache'}
         );
         const data = await response.json();
         setProducts(data.productsData);

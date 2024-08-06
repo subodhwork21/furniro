@@ -9,12 +9,21 @@ import { CollectionAfterChangeHook } from "payload";
 import config from "@payload-config";
 import { getPayloadHMR } from "@payloadcms/next/utilities";
 
+const allProducts = async()=>{
+  const response = await fetch(
+    process.env.NEXT_PUBLIC_BASE_URL+"/api/allproducts", {cache: 'force-cache'}
+  );
+  return await response.json();
+}
+
+
+
 export default async function Home() {
   const payload = await getPayloadHMR({ config });
 
-  const productItems = await payload.find({
-    collection: "products",
-  });
+  // const productItems = await payload.find({
+  //   collection: "products",
+  // });
 
   const categoryItems = await payload.find({
     collection: "category",
@@ -28,10 +37,12 @@ export default async function Home() {
     collection: "gridimages",
   });
 
+  const allProductsNew:any = await allProducts();
+
   return (
     <>
       <HeroSection />
-      <Products productData={productItems} categoryItems={categoryItems} />
+      <Products productData={allProductsNew.productsData} categoryItems={categoryItems} />
       <SliderInspiration sliderImages={inspirationItems} />
       <ImageGrid imageGridItems={imageGridItems} />
     </>

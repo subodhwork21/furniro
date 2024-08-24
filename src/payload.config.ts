@@ -16,6 +16,7 @@ import { Inspiration } from './collections/Inspiration'
 import { GridImages } from './collections/GridImages'
 import { Customers } from './collections/Customers'
 import { vercelBlobStorage } from '@payloadcms/storage-vercel-blob'
+import { Cart } from "./collections/Cart";
 
 
 
@@ -25,9 +26,8 @@ const dirname = path.dirname(filename)
 export default buildConfig({
   admin: {
     user: Users.slug,
-    
   },
-  collections: [Users, Media, Products, Category, Furniture, Orders, Inspiration, GridImages, Customers],
+  collections: [ Users, Media, Products, Category, Furniture, Orders, Inspiration, GridImages, Customers, Cart ],
   editor: lexicalEditor(),
   secret: process.env.PAYLOAD_SECRET || '',
   typescript: {

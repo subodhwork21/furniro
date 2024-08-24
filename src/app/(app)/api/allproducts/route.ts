@@ -5,6 +5,7 @@ import { getPayloadHMR } from "@payloadcms/next/utilities";
 
 export async function GET(request: Request) {
   const payload = await getPayloadHMR({ config });
+  
   try {
   
     const data = {

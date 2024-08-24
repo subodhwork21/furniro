@@ -21,6 +21,8 @@ interface Customers {
   id: string;
   email: string;
 }
+
+
 import { startTransition, useEffect, useState } from "react";
 import Link from "next/link";
 const ProductItem = ({
@@ -76,8 +78,8 @@ const ProductItem = ({
       });
       const data = await res.json();
       console.log(data);
-      if (data.productExistsInCart) {
-        startTransition(() => {
+      if(data.success){
+           startTransition(() => {
           toast({
             title: "1 more item " + name + " added to cart",
             description: "",
@@ -85,28 +87,19 @@ const ProductItem = ({
           router.refresh();
           setLoading("existsAlready");
         });
-      } else if (
-        data.message === "Product quantity is more than original quantity"
-      ) {
-        startTransition(() => {
-          toast({
-            title:
-              "The quantity of the added product in the cart exceeds the available stock.",
-            description: "",
-          });
-          router.refresh();
-          setLoading("existsAlready");
-        });
-      } else if (data.message === "Product added to cart successfully") {
-        startTransition(() => {
-          toast({
-            title: "1 item " + name + " added to cart",
-            description: "1 item",
-          });
-          router.refresh();
-          setLoading(true);
-        });
       }
+      else{
+          startTransition(() => {
+            toast({
+              title:
+                "The quantity of the added product in the cart exceeds the available stock.",
+              description: "",
+            });
+            router.refresh();
+            setLoading("existsAlready");
+          });
+        }
+     
     } catch (error) {
       setLoading("error");
     }
@@ -130,6 +123,7 @@ const ProductItem = ({
             width={image.width}
             height={image.height}
             alt={image.alt}
+            unoptimized
           />
           <div
             className={`h-[300px] absolute w-full px-[16px] z-[4] group top-0 left-0 flex justify-center items-center flex-col bg-black bg-opacity-50 opacity-0 transition-opacity duration-300 group-hover:opacity-100`}
@@ -154,6 +148,7 @@ const ProductItem = ({
                   width={16}
                   height={16}
                   alt="share"
+                  unoptimized
                 />
                 <span>Share</span>
               </p>
@@ -164,6 +159,7 @@ const ProductItem = ({
                   width={16}
                   height={16}
                   alt="compare"
+                  unoptimized
                 />
                 <span>Share</span>
               </p>
@@ -174,6 +170,7 @@ const ProductItem = ({
                   width={16}
                   height={16}
                   alt="heart"
+                  unoptimized
                 />
                 <span>Like</span>
               </p>

@@ -18,7 +18,7 @@ export const Orders: CollectionConfig = {
     {
         name: 'order user',
         type: 'relationship',
-        relationTo: 'users',
+        relationTo: 'customers',
         required: true,
     },{
         name: 'order status',

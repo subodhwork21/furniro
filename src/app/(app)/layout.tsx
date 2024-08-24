@@ -53,6 +53,10 @@ export default async function RootLayout({
   const login = cookieStore.get("login")?.value;
   const userId = cookieStore.get("_id")?.value;
   const cartItem = cookieStore.get("cart")?.value;
+
+  const fetchCartsIfLogin = () =>{
+    
+  }
   return (
     <html lang="en">
       <AuthProvider>

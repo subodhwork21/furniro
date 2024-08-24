@@ -1,6 +1,9 @@
+'use client';
 import Container from "../components/container";
 import Image from "next/image";
 import Link from "next/link";
+import ShoppingCart from "./shopping_cart";
+import { useState } from "react";
 
 const Header = ({
   login,
@@ -11,13 +14,20 @@ const Header = ({
   userId: string | undefined;
   cartItem: any;
 }) => {
+  const [cartModalOpen, setCartModalOpen] = useState<any>(false);
+  const cartModal = (e: any) => {
+    setCartModalOpen(true);
+  };
   return (
+    <>
+    
     <Container
       pl={"pl-[54px]"}
       pt={"pt-[30px]"}
       pb={"pb-[30px]"}
       pr={"pr-[100px]"}
     >
+      {cartModalOpen ? <ShoppingCart modalFunc = {()=>setCartModalOpen(false)}/> : ""}
       <nav className="flex justify-between items-center">
         <Image
           src={"/images/logo.svg"}
@@ -75,7 +85,7 @@ const Header = ({
             width={28}
             alt="heart"
           ></Image>
-          <div className="flex justify-center items-center relative">
+          <div className="flex justify-center items-center relative z-[1000]" onClick={(e)=> cartModal(e)}>
             <Image
               src={"/images/cart.svg"}
               height={28}
@@ -95,6 +105,7 @@ const Header = ({
         </div>
       </nav>
     </Container>
+    </>
   );
 };
 

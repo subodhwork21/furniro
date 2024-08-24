@@ -44,31 +44,31 @@ export const Customers: CollectionConfig = {
        "yes"
       ],
     },
-    {
-      name: "Cart",
-      type: "group",
-      fields: [
-        {
-          name: "Cart_products",
-          label: 'Cart Products',
-          type: 'array',
-          fields: [
-            {
-              name: 'cart_product',
-              label: 'Cart Product',
-              type: 'relationship',
-              relationTo: 'products',
-            },
-            {
-                name: 'cart_quantity',
-                label: 'Cart Quantity',
-                type: 'number',
-            }],
-          }
+    // {
+    //   name: "Cart",
+    //   type: "group",
+    //   fields: [
+    //     {
+    //       name: "Cart_products",
+    //       label: 'Cart Products',
+    //       type: 'array',
+    //       fields: [
+    //         {
+    //           name: 'cart_product',
+    //           label: 'Cart Product',
+    //           type: 'relationship',
+    //           relationTo: 'products',
+    //         },
+    //         {
+    //             name: 'cart_quantity',
+    //             label: 'Cart Quantity',
+    //             type: 'number',
+    //         }],
+    //       }
       
        
-      ]
-    }
+    //   ]
+    // }
    
     
   ],

@@ -13,6 +13,7 @@ const Footer = () => {
               width={85}
               height={36}
               alt="logo"
+              unoptimized
             ></Image>
             <p className="w-[285px] text-bggray">
               400 University Drive Suite 200 Coral Gables,

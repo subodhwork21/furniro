@@ -25,6 +25,7 @@ export default function OrderPage(){
               height={316}
               className="object-cover w-[1440px] h-[316px]"
               alt="shop-image"
+              unoptimized
             />
           </div>
           <div className="absolute top-1/2 left-1/2 transform -translate-x-1/2 -translate-y-1/2 ">

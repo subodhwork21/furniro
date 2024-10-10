@@ -56,6 +56,22 @@ const CheckoutPage = ({ amount }: { amount: number }) => {
       // confirming the payment. Show the error to your customer (for example, payment details incomplete)
       setErrorMessage(error.message);
     } else {
+      useEffect(()=>{
+        const orderPage = async() =>{ 
+            const response = await fetch("/api/order", {
+            method: "POST",
+            headers: {
+              "Content-Type": "application/json",
+            },
+            body: JSON.stringify({
+              amount: amount,
+            }),
+          });
+          const result = await response.json();
+          console.log(result);
+        }
+        orderPage();
+      }, [amount])
       // The payment UI automatically closes with a success animation.
       // Your customer is redirected to your `return_url`.
     }

@@ -6,6 +6,7 @@ import convertToSubcurrency from "../lib/convertToSubcurrency";
 import { Elements } from "@stripe/react-stripe-js";
 import { loadStripe } from "@stripe/stripe-js";
 import CheckoutPage from "../components/CheckoutPage";
+import { useEffect, useState } from "react";
 
 if (process.env.NEXT_PUBLIC_STRIPE_PUBLIC_KEY === undefined) {
   throw new Error("NEXT_PUBLIC_STRIPE_PUBLIC_KEY is not defined");
@@ -14,7 +15,28 @@ if (process.env.NEXT_PUBLIC_STRIPE_PUBLIC_KEY === undefined) {
 const stripePromise = loadStripe(process.env.NEXT_PUBLIC_STRIPE_PUBLIC_KEY);
 
 export default function OrderPage(){
-  const amount = 49.99;
+  const [cartItem, setCartItem] = useState<any>([]);
+  const [total, setTotal] = useState<number>(0);
+  const [changestate, setChangeState] = useState<boolean>(false);
+  const [order, setOrder] = useState<boolean>(false);
+  useEffect(()=>{
+    const cartProducts = async() => {
+        const response = await fetch("/api/getcart", {
+        });
+        const result = await response.json();
+        setCartItem(result.productsData.docs);
+        const total = result.productsData.docs.reduce((acc:any, item:any) => {
+            return acc + item.quantity * item.cart_product['product price'];
+        }, 0);
+        setTotal(total);
+        setChangeState(false);
+        return result;
+    }
+    cartProducts();
+},[changestate])
+
+
+  const amount = total || 1000;
     return <>
           <Container pl="pl-[0px]" pr="pr-[0px]" pt="pt-[0px]" pb="pb-[0px]">
         <div className="relative">
@@ -63,47 +85,57 @@ export default function OrderPage(){
             <p className="text-[24px]">Subtotal</p>
           </div>
 
-          <div className="flex justify-between items-center w-full ">
-            <p className="text-[16px] text-bggray">Asgaard sofa &times; 1</p>
-            <p className="text-[16px]">Rs. 250,000.00</p>
-          </div>
+          {
+            cartItem.map((item: any, idx: number)=>{
+              return (
+                <div className="flex justify-between items-center w-full ">
+                <p className="text-[16px] text-bggray">{item.cart_product['product_name']} &times; {item['quantity']}</p>
+                <p className="text-[16px]">Rs. {item.cart_product['product price']}</p>
+              </div>
+              );
+            })
+          }
+          
 
           <div className="flex justify-between items-center w-full mt-[22px]">
             <p className="text-[16px] text-black">Subtotal</p>
-            <p className="text-[16px]">Rs. 250,000.00</p>
+            <p className="text-[16px]">Rs. {total}</p>
           </div>
 
           <div className="flex justify-between items-center w-full mt-[22px]">
             <p className="text-[16px] text-black">Total</p>
-            <p className="text-[16px]">Rs. 250,000.00</p>
+            <p className="text-[16px]">Rs. {total}</p>
           </div>
 
-          <button className="mt-[39px] rounded-[15px] border-[1px] border-black px-[102px] py-[17px]">Place order</button>
+         { order === false ?  <button className="mt-[39px] rounded-[15px] border-[1px] border-black px-[102px] py-[17px]" onClick={()=>setOrder(true)}>Place order</button> : <></>}
          
         </div>
          
-        </Container>
-        <main className="max-w-6xl mx-auto p-10 text-white text-center border m-10 rounded-md bg-gradient-to-tr from-blue-500 to-purple-500">
-      <div className="mb-10">
-        <h1 className="text-4xl font-extrabold mb-2">Subodh</h1>
-        <h2 className="text-2xl">
-          has requested
-          <span className="font-bold"> ${amount}</span>
-        </h2>
-      </div>
 
-      <Elements
-        stripe={stripePromise}
-        options={{
-          mode: "payment",
-          amount: convertToSubcurrency(amount),
-          currency: "usd",
-        }}
-      >
-        <CheckoutPage amount={amount} />
-      </Elements>
-    </main>
+         {
+          order ? <> <main className="max-w-6xl mx-auto p-10 text-white text-center border m-10 rounded-md bg-gradient-to-tr from-blue-500 to-purple-500">
+          <div className="mb-10">
+            <h1 className="text-4xl font-extrabold mb-2">You</h1>
+            <h2 className="text-2xl">
+              have requested
+              <span className="font-bold"> ${amount}</span>
+            </h2>
+          </div>
+    
+          <Elements
+            stripe={stripePromise}
+            options={{
+              mode: "payment",
+              amount: convertToSubcurrency(amount),
+              currency: "usd",
+            }}
+          >
+            <CheckoutPage amount={amount} />
+          </Elements>
+        </main></> : <></>
+         }
+       
 
-      {/* <Container></Container> */}
+      </Container>
     </>
 }

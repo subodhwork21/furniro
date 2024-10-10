@@ -17,14 +17,14 @@ export default function Login() {
     e.preventDefault();
     if (!email || !password) {
       alert("Please enter email and password");
-      setLoading(false);
+      setLoading(false);  
     } else {
       try {
         let data = await loginUser(email, password);
         if (data.token) {
           startTransition(() => {
             router.refresh();
-            setLoading(true);
+            setLoading(true);   
           });
         } else {
           alert("Invalid email or password");

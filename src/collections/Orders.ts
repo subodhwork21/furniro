@@ -4,24 +4,28 @@ export const Orders: CollectionConfig = {
   slug: 'orders',
   fields: [
     {
-      name: 'order product',
+      label: "order product",
+      name: 'order_product',
       type: 'relationship',
       relationTo: 'products',
       hasMany: true,
       required: true,
     },
     {
-        name: 'order quantity',
+        label: "order quantity",
+        name: 'order_quantity',
         type: 'number',
         required: true,
     },
     {
-        name: 'order user',
+      label: "order user",
+        name: 'order_user',
         type: 'relationship',
         relationTo: 'customers',
         required: true,
     },{
-        name: 'order status',
+      label: "order status",
+        name: 'order_status',
         type: 'select',
         options: [
             'pending',
@@ -31,7 +35,8 @@ export const Orders: CollectionConfig = {
         required: true,
     },
     {
-        name: 'order date',
+      label: "order date",
+        name: 'order_date',
         type: 'date',
         required: true,
     },

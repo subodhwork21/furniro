@@ -88,7 +88,7 @@ export default function OrderPage(){
           {
             cartItem.map((item: any, idx: number)=>{
               return (
-                <div className="flex justify-between items-center w-full ">
+                <div className="flex justify-between items-center w-full " key={idx}>
                 <p className="text-[16px] text-bggray">{item.cart_product['product_name']} &times; {item['quantity']}</p>
                 <p className="text-[16px]">Rs. {item.cart_product['product price']}</p>
               </div>

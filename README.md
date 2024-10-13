@@ -80,7 +80,7 @@ This project is licensed under the MIT License - see the LICENSE file for detail
 
 Contact
 
-For any inquiries or support, feel free to reach out at subodhwork21@gmail.com.
+For any inquiries or support, feel free to reach out at subodhac.work@gmail.com.
 
 
 This **README** highlights that the project is built on **Payload**, reflecting your role and the technology stack more accurately. Let me know if you'd like any further adjustments!

@@ -20,7 +20,6 @@ const Header = ({
   };
   return (
     <>
-    
     <Container
       pl={"pl-[54px]"}
       pt={"pt-[30px]"}
@@ -35,7 +34,7 @@ const Header = ({
           height={41}
           alt="logo"
         ></Image>
-        <ul className="flex text-[16px] justify-center items-center gap-x-[75px]">
+        <ul className="flex text-[16px] justify-center items-center gap-x-[75px] md">
           <li>
             <Link href={"/"}>Home</Link>
           </li>

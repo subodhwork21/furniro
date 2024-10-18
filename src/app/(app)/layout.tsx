@@ -41,6 +41,7 @@ const poppinsregular = localFont({
 
 import { cookies } from "next/headers";
 import { AuthProvider } from "./providers/Auth";
+import Responsiveness from "./responsiveness";
 
 export default async function RootLayout({
   children,
@@ -64,6 +65,7 @@ export default async function RootLayout({
           className={`${poppinsmedium.variable} ${poppinssemibold.variable} ${poppinsbold.variable} ${poppinslight.variable} ${poppinsregular.variable}`}
         >
           {<Header login={login} userId={userId} cartItem={cartItem} />}
+          <Responsiveness/>
           {children}
           {<Footer />}
         </body>

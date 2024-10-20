@@ -124,6 +124,8 @@ To deploy your own version:
 ├── package.json          # Project dependencies and scripts
 └── README.md             # Project documentation
 
+```
+
 - **public/**: Contains all static assets such as images and fonts.
 - **src/**: Main application folder, containing
   - **app/**: Next.js specific logic, such as pages, layouts, and components for server-side and static rendering.

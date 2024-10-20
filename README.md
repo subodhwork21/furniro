@@ -1,87 +1,132 @@
-# Furniro
+# Furniro - Payload CMS E-commerce Application
 
-**Furniro** is an e-commerce application designed for desktop users to provide a seamless online shopping experience for furniture enthusiasts. It allows customers to browse products, search, add items to the cart, and complete purchases through a smooth checkout process. The platform is tailored to meet the needs of both customers and administrators, offering robust functionality and a user-friendly interface.
-
-## Project Overview
-
-In this project, I was responsible for handling the entire coding process using **Payload**, a powerful CMS framework. While the design was imported from an external source, I integrated it into the application and developed all necessary functionalities, from product browsing to checkout. The result is a functional and easy-to-navigate platform built specifically for desktop users.
+Furniro is a fully functional e-commerce platform designed for desktop users to offer a seamless shopping experience for furniture enthusiasts. The project includes key features like product browsing, search, cart functionality, and a smooth checkout process.
 
 
+## Table of Contents
 
-### Design Reference
-
-The design used in this project was sourced from a publicly available Figma file and does not belong to me. You can find the original design [here](https://www.figma.com/design/P25eTX8PeHkxDCGIM16F63/eCommerce-Website-%7C-Web-Page-Design-%7C-UI-KIT-%7C-Interior-Landing-Page-(Community)?node-id=1-3&node-type=canvas&t=VwmOYQ4zURZcIDb5-0).
-
-
+- [Features](#features)
+- [Tech Stack](#tech-stack)
+- [Installation](#installation)
+- [Usage](#usage)
+- [Deployment](#deployment)
+- [Project Structure](#project-structure)
 
 ## Features
 
-- **Product Browsing**: Users can explore a variety of furniture products.
-- **Search Functionality**: A search bar enables users to quickly find the items they need.
-- **Shopping Cart**: Users can add products to the cart and review them before purchasing.
-- **Checkout Process**: Fully functional checkout with smooth transaction handling.
-- **Admin Dashboard**: Admins can manage products, orders, and customer information easily.
+- Product Browsing: Explore a wide variety of furniture products.
+- Search Functionality: Quickly find products via a search bar.
+- Shopping Cart: Add products to the cart and review them before purchasing.
+- Checkout Process: A fully functional checkout system with smooth transaction handling.
+- Admin Dashboard: Manage products, orders, and customer information.
+- Desktop Design: The platform is optimized for desktop use.
 
-## Technologies Used
 
-- **Payload CMS**: For managing the backend logic, data models, and content.
-- **HTML & CSS**: Front-end development for creating a responsive and visually appealing user interface.
-- **JavaScript**: To add interactivity and enhance the user experience.
-- **MongoDB**: Database management for storing product, order, and customer data.
+## Tech Stack
 
-## Installation & Setup
+- [Next.js 14](https://nextjs.org/) - React framework for production-grade web applications
+- [Tailwind CSS](https://tailwindcss.com/) - A utility-first CSS framework
+- [Vercel](https://vercel.com/) - Platform for frontend frameworks and static sites
+-  [Payload CMS](https://payloadcms.com) - A headless CMS for managing the backend logic and content.
+-  [MongoDB](https://www.mongodb.com) - For managing product, order, and customer data.
 
-### Prerequisites
+## Installation
 
-- **Node.js** and **npm** installed on your system.
-- **MongoDB** for database management.
-- Basic knowledge of **Payload CMS**.
+To run the project locally, follow these steps:
 
-### Installation
-
-1. Clone the repository:
-
+1. **Clone the repository**:
    ```bash
    git clone https://github.com/subodhwork21/furniro.git
+   ```
 
+2. **Navigate into the directory**:
+   ```bash
+   cd furniro
+   ```
 
-2. Navigate to the project directory:
-cd furniro
+3. **Install dependencies**:
+   ```bash
+   npm install
+   ```
 
-3. Install dependencies: 
-npm install
+4. **Run the development server**:
+   ```bash
+   npm run dev
+   ```
 
-4. Set up environment variables:
-Copy the .env.example file to .env and configure your database connection:
-cp .env.example .env
+   Open [http://localhost:3000](http://localhost:3000) in your browser to see the app.
 
-5. Start the development server:
-npm run dev
+> **Note**: `.env` file is required for this project.
 
-6. Visit the application at http://localhost:3000.
+## Usage
 
-Project Structure
+This project demonstrates the use of **Next.js 14 with the app router** and **Tailwind CSS** for styling. The code is organized into a clear folder structure that follows Next.js best practices.
 
-src/: Contains all the code for the Payload CMS setup, including collections, fields, and hooks.
-public/: Holds static assets like images and styles.
-config/: Configuration files for the Payload CMS setup.
+### Key Directories:
 
+- **`src/app/`**: Contains all pages, layouts, and route logic using Next.js' app router.
+- **`src/components/`**: Houses reusable UI components that are shared across different pages.
+- **`src/lib/`**: Contains utility functions and shared logic that can be used in various parts of the project.
+- **`public/`**: Stores static assets such as images, icons, and other public resources.
 
-Future Enhancements
+### Running the Project:
 
-User Authentication: Implement user accounts for order tracking and preferences.
-Payment Integration: Add payment gateways for secure transactions.
-Mobile Responsiveness: Expand the platform to optimize for mobile and tablet devices.
+1. **Clone the repository**:
+   ```bash
+   git clone https://github.com/your-username/your-repo-name.git
+   ```
 
+2. **Navigate into the project directory**:
+   ```bash
+   cd your-repo-name
+   ```
 
-License
+3. **Install the dependencies**:
+   ```bash
+   npm install
+   ```
 
-This project is licensed under the MIT License - see the LICENSE file for details.
+4. **Start the development server**:
+   ```bash
+   npm run dev
+   ```
 
-Contact
+   Open [http://localhost:3000](http://localhost:3000) in your browser to see the app running.
 
-For any inquiries or support, feel free to reach out at subodhac.work@gmail.com.
+The project uses **Next.js' app router** to handle routing and server-side rendering, ensuring optimal performance and SEO. Tailwind CSS is used for building responsive and customizable UI components.
 
+## Deployment
 
-This **README** highlights that the project is built on **Payload**, reflecting your role and the technology stack more accurately. Let me know if you'd like any further adjustments!
+This project is deployed on Vercel and can be accessed at:  
+[https://furniro-wine.vercel.app](https://furniro-wine.vercel.app/)
 
+To deploy your own version:
+
+1. **Push to GitHub or any Git provider**.
+2. **Connect your repository to Vercel** (or use the Vercel CLI):
+   ```bash
+   vercel
+   ```
+3. Vercel will automatically build and deploy your project.
+
+## Project Structure
+
+```bash
+.
+├── public/               # Public assets (images, fonts, etc.)
+├── src/                  # Source files
+│   ├── app/              # Next.js app folder
+│   │   ├── (app)/        # Next.js app-specific logic (layouts, pages)
+│   │   ├── (payload)/    # Payload CMS setup (collections, hooks)
+│   │   └── (my-route)/   # Custom route logic
+├── config/               # Configuration files for Payload CMS setup
+├── styles/               # Global styles and Tailwind CSS configuration
+├── package.json          # Project dependencies and scripts
+└── README.md             # Project documentation
+
+- **public/**: Contains all static assets such as images and fonts.
+- **src/**: Main application folder, containing
+  - **app/**: Next.js specific logic, such as pages, layouts, and components for server-side and static rendering.
+  - **payload/**: Payload CMS setup with models, collections, and hooks for managing content.
+  - **my-route/**: Custom route logic for additional routing functionality beyond Payload's defaults.
+- **config//**: Payload CMS and project configuration files.

@@ -13,7 +13,7 @@ const Responsiveness: React.FC = () => {
     handleResize();
 
     // Add a resize event listener to update state when the window is resized
-    window.addEventListener('resize', handleResize);
+    window.addEventListener('resize', handleResize); 
 
     // Clean up event listener when the component unmounts
     return () => {
